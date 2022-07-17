@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public interface ReadFile {
+public interface ReadFileService {
 
     List<UserDTO> normalizedReturn(MultipartFile file);
     Path tempWriteFile(byte[] file, String fileName) throws IOException;

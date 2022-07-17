@@ -1,7 +1,7 @@
 package com.test.luizalabs.controller;
 
 import com.test.luizalabs.dto.UserDTO;
-import com.test.luizalabs.service.ReadFile;
+import com.test.luizalabs.service.ReadFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,12 @@ import java.util.List;
 @RequestMapping("luizalabs")
 @RequiredArgsConstructor
 public class FileController {
-    private final ReadFile readFile;
+    private final ReadFileService readFileService;
 
     @PostMapping("/upload")
     public ResponseEntity<List<UserDTO>> fileUpload(@RequestParam("file") MultipartFile file) {
-
-        if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(readFile.normalizedReturn(file));
+        return  !file.isEmpty() ? ResponseEntity.status(HttpStatus.OK).body(readFileService.normalizedReturn(file)) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
 }
